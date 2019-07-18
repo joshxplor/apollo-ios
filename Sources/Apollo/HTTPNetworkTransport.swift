@@ -267,6 +267,6 @@ public class HTTPNetworkTransport: NetworkTransport {
       return ["id": operationIdentifier, "variables": operation.variables]
     }
     
-    return ["query": operation.queryDocument, "variables": operation.variables]
+    return ["query": operation.queryDocument, "variables": operation.variables?.withNilValuesRemoved]
   }
 }
