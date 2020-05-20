@@ -43,7 +43,7 @@ extension RequestCreator {
                                                        sendQueryDocument: Bool = true,
                                                        autoPersistQuery: Bool = false) -> GraphQLMap {
     var body: GraphQLMap = [
-      "variables": operation.variables,
+      "variables": operation.variables?.withNilValuesRemoved,
       "operationName": operation.operationName,
     ]
 
@@ -119,7 +119,7 @@ extension RequestCreator {
         variables.updateValue(nil, forKey: fieldName)
       }
     }
-    fields["variables"] = variables
+    fields["variables"] = variables.withNilValuesRemoved
 
     let operationData = try serializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")
